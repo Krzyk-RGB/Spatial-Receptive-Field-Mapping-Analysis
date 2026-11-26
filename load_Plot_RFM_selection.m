@@ -2,14 +2,13 @@ clc
 clear
 close all
 
-%%%%the inoutput mat file from 'load_Plot_RFM' is the the input for this
-%%%%file. This code refines the ambigoues and doggy receptive field
-addpath('C:\Users\k21166257\Documents\MATLAB\Rceptive_Field_mapping_codes_2')
-
+%%%%the output mat file from 'load_Plot_RFM' is the the input file for this piece of code
+%%%%file. This code allows for user input to discard ambiguous RFs which lack a clearly identifiable peak, exhibited multiple distinct peaks, or display diffuse unlocalized activity across the entire mapping area
+addpath(%insert full windows path here to data folder containing RF Mapping codes inside single paranthesis'') 
 %%%%%%%%%%%%%%%%%%%%%%%%  WT  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-addpath('C:\Users\k21166257\Documents\MATLAB\Rceptive_Field_mapping_codes_2\RFM_GNAT1_22052024')
-filename='GNAT1_22052024_mat_N1to30_sample_RF.mat_RF_dimensions.mat';
-selected_neurons = [4,5,6,8,9,11,19,20,21,22,23,25,28];
+addpath(%insert full windows path to folder containing the individual retina to analyse inside single paranthesis'')
+filename= %insert file path to the .mat file generated from 'load_Plot_RFM'';
+selected_neurons = [%insert Nex row numbers of the single units to analyse seperated by a comma];
 selected_neurons = sort(selected_neurons);
 
 
@@ -219,7 +218,7 @@ end
 hold on;
 
 % Define scale bar properties
-scale_length_units = 3.5; % 4 units in your figure corresponds to 100 µm
+scale_length_units = 3.5; % 4 units in your figure corresponds to 100 Âµm
 x_start = 26; % Starting position on the x-axis
 y_start = 58; % Position slightly above the x-axis for visibility
 
@@ -228,7 +227,7 @@ line([x_start, x_start + scale_length_units], [y_start, y_start], ...
     'Color', 'k', 'LineWidth', 3); % White scale bar, 3px thick
 
 % Add text label for scale
-text(x_start + scale_length_units / 2, y_start + 1, '100 µm', ...
+text(x_start + scale_length_units / 2, y_start + 1, '100 Âµm', ...
     'Color', 'k', 'FontSize', 10,'FontWeight', 'bold', 'HorizontalAlignment', 'center');
 
 hold off;
@@ -334,13 +333,11 @@ title('Data Plot with Mean and Standard Deviation Lines','FontSize',fontsize)
 xlabel('Data Index','FontSize',fontsize)
 ylabel('Diameter(micron)','FontSize',fontsize)
 set(gca, 'YTickLabel', get(gca, 'YTickLabel'), 'FontSize', fontsize);
-legend('Data points', 'Mean', 'Mean ± Std Dev','FontSize',fontsize)
+legend('Data points', 'Mean', 'Mean Â± Std Dev','FontSize',fontsize)
 hold off;
 
 
-% save data_diameter_19092023_WT_RFM data
-% save data_diameter_25092024_WT_RFM_RFM data
-% save data_diameter_170723_rd1_transplant_RFM data
+% save %insert file name to save .mat
 
 %%
 %%%%%%%%%%%Area comparison  2:
@@ -412,13 +409,8 @@ title('Data Plot with Mean and Standard Deviation Lines','FontSize',fontsize)
 xlabel('Data Index','FontSize',fontsize)
 ylabel('Area(um2)','FontSize',fontsize)
 set(gca, 'YTickLabel', get(gca, 'YTickLabel'), 'FontSize', fontsize);
-legend('Data points', 'Mean', 'Mean ± Std Dev','FontSize',fontsize)
+legend('Data points', 'Mean', 'Mean Â± Std Dev','FontSize',fontsize)
 hold off;
-
-
-% save data_area_19092023_WT_RFM data
-% save data_area_25092024_WT_RFM_RFM data
-% save data_area_170723_rd1_transplant_RFM data
 
 
 
