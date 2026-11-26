@@ -2,18 +2,17 @@ clc
 clear 
 close all
 
-%%%this program loads previously calculated receptive fields maps and plot
-%%%them, finds the diameter and area
+%%%this program loads previously calculated receptive fields maps and plots them and calculates the diameter and area
 fontSize = 14;
 
 % % % save (filename3,'qcell_RFM')
 %%%%var = qcell_RFM
 
 %%%%%%%%%%%%%%%%%%%%%%%%GNAT1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-addpath('F:\IMARIS Computer Backup 2025_06_23\k21166257\Documents\MATLAB\Rceptive_Field_mapping_codes_2')
+addpath(%insert full windows path to Receptive field mapping codes inside paranthesis '')
 % filename='2023-10-24T14-19-49McsRecording-sorted-units_05_RC_scan_real_hori_eventNo_1_barNo_60_0.01s_neuronClasses.mat_RFM.mat';
 
-filename = 'GNAT1_14092023_mat_sample_RF.mat';
+filename = '%insert file name .mat';
 
 
 %%
@@ -49,20 +48,25 @@ RF_dimensions{i,4}= qcell_RFM{i,1};
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 matrix = qcell_RFM{i,1};
 %%%%%plotting the mask and then area calculation
+
 % Step 1: Find the peak value
 peakValue = max(matrix(:));
+
 
 % Step 2: Threshold the gausiian fitted matrix at 25% of the peak
 threshold = 0.25 * peakValue;
 matrix(matrix < threshold) = 0;
 
+
 % Step 3: Find the peak location after thresholding
 [maxValue, linearIdx] = max(matrix(:));
 [rowPeak, colPeak] = ind2sub(size(matrix), linearIdx);
 
+
 % Step 4: Create a circular mask with a radius of 10 around the peak
 [x, y] = meshgrid(1:size(matrix, 2), 1:size(matrix, 1));
 mask = sqrt((x - colPeak).^2 + (y - rowPeak).^2) <= 10;
+
 
 % Step 5: Apply the mask to keep only the peak area within the 10-element radius
 matrix(~mask) = 0;
@@ -82,6 +86,7 @@ diameter= max((max(row)-min(row)+1),(max(col)-min(col))+1)*Px_size;
 figTitle=sprintf('The total RF area:%d u2m \n The RF diameter:%d um Neuron#:%d',area,diameter,i);
 % title(figTitle);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Step 6: Extract a 15x15 area centered around the peak for plotting
 margin=7;
 rowStart = max(1, rowPeak - margin);
@@ -202,7 +207,7 @@ title('Data Plot with Mean and Standard Deviation Lines','FontSize',fontsize)
 xlabel('Data Index','FontSize',fontsize)
 ylabel('Diameter(micron)','FontSize',fontsize)
 set(gca, 'YTickLabel', get(gca, 'YTickLabel'), 'FontSize', fontsize);
-legend('Data points', 'Mean', 'Mean ± Std Dev','FontSize',fontsize)
+legend('Data points', 'Mean', 'Mean Â± Std Dev','FontSize',fontsize)
 hold off;
 
 %}
